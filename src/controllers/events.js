@@ -1,4 +1,3 @@
-import { RegistrationCollection } from '../db/models/registration.js';
 import {
   createRegisterUser,
   getAllEvents,
@@ -30,7 +29,6 @@ export const getEventsController = async (req, res) => {
 export const createRegisterUserController = async (req, res) => {
   const { fullName, email, dateOfBirth } = req.body;
 
-  // Basic validation
   if (!fullName || !email || !dateOfBirth) {
     return res.status(400).json({
       status: 400,
