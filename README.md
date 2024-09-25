@@ -8,7 +8,7 @@ Key Features:
 3. MongoDB for Storage: Event and user data is stored securely in MongoDB, ensuring scalability and flexibility.
 4. RESTful API: Provides clear endpoints for accessing event details and handling user registrations, following RESTful principles.
 
-Tech Stack
+Tech Stack:
 - Node.js: Server-side JavaScript runtime.
 - MongoDB: NoSQL database for event and user data.
 - Express.js: Web framework for API routes.
@@ -19,7 +19,6 @@ Make sure you have the following installed:
 - [MongoDB](https://www.mongodb.com/) (local or hosted on services like MongoDB Atlas)
 
  Installation
-
 1. Clone the repository:
    git clone https://github.com/yourusername/events_app_backend.git
 2. Install dependencies:
