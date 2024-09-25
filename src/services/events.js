@@ -34,7 +34,15 @@ export const createRegisterUser = async (payload) => {
   return user;
 };
 
-export const getAllRegisteredUsers = async () => {
-  const users = await RegistrationCollection.find();
+export const getAllRegisteredUsers = async ({ filter = {} }) => {
+  const usersQuery = RegistrationCollection.find();
+  if (filter.fullName) {
+    usersQuery.where('fullName').equals(filter.fullName);
+  }
+
+  if (filter.email) {
+    usersQuery.where('email').equals(filter.email);
+  }
+  const users = await RegistrationCollection.find().merge(usersQuery).exec();
   return users;
 };

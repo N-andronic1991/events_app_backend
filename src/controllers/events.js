@@ -1,8 +1,10 @@
+import { RegistrationCollection } from '../db/models/registration.js';
 import {
   createRegisterUser,
   getAllEvents,
   getAllRegisteredUsers,
 } from '../services/events.js';
+import { parseFilterParams } from '../utils/parseFilterParams.js';
 
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
@@ -26,6 +28,16 @@ export const getEventsController = async (req, res) => {
 };
 
 export const createRegisterUserController = async (req, res) => {
+  const { fullName, email, dateOfBirth } = req.body;
+
+  // Basic validation
+  if (!fullName || !email || !dateOfBirth) {
+    return res.status(400).json({
+      status: 400,
+      message: 'Missing required fields',
+    });
+  }
+
   const user = await createRegisterUser(req.body);
 
   res.status(201).json({
@@ -36,7 +48,12 @@ export const createRegisterUserController = async (req, res) => {
 };
 
 export const getUsersController = async (req, res) => {
-  const users = await getAllRegisteredUsers();
+  const filter = parseFilterParams(req.query);
+
+  const users = await getAllRegisteredUsers({ filter });
+  if (!users) {
+    return [];
+  }
 
   res.json({
     status: 200,
