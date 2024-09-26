@@ -50,5 +50,3 @@ export const getAllRegisteredUsers = async (filter = {}, eventId) => {
   const users = await usersQuery.exec();
   return users;
 };
-
-// const users = await RegistrationCollection.find().merge(usersQuery).exec();

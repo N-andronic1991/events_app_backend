@@ -28,22 +28,8 @@ export const getEventsController = async (req, res) => {
 };
 
 export const createRegisterUserController = async (req, res) => {
-  console.log('Controller hit'); // Log that the controller was called
-  console.log('Params:', req.params); // Log the route params
-  console.log('Body:', req.body); // Log the request body
-
   const { eventId } = req.params;
-  console.log(eventId);
   const formData = req.body;
-  console.log(req.body);
-
-  // if (!fullName || !email || !dateOfBirth) {
-  //   return res.status(400).json({
-  //     status: 400,
-  //     message: 'Missing required fields',
-  //   });
-  // }
-
   const user = await createRegisterUser(req.body, eventId);
   if (!eventId) {
     throw createHttpError(404, 'User not found');
