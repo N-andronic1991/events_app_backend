@@ -29,13 +29,16 @@ export const getAllEvents = async ({
   };
 };
 
-export const createRegisterUser = async (payload) => {
-  const user = await RegistrationCollection.create(payload);
+export const createRegisterUser = async (payload, eventId) => {
+  const user = await RegistrationCollection.create({ ...payload, eventId });
   return user;
 };
 
-export const getAllRegisteredUsers = async ({ filter = {} }) => {
+export const getAllRegisteredUsers = async (filter = {}, eventId) => {
   const usersQuery = RegistrationCollection.find();
+  if (eventId) {
+    usersQuery.where('eventId').equals(eventId);
+  }
   if (filter.fullName) {
     usersQuery.where('fullName').equals(filter.fullName);
   }
@@ -43,6 +46,9 @@ export const getAllRegisteredUsers = async ({ filter = {} }) => {
   if (filter.email) {
     usersQuery.where('email').equals(filter.email);
   }
-  const users = await RegistrationCollection.find().merge(usersQuery).exec();
+
+  const users = await usersQuery.exec();
   return users;
 };
+
+// const users = await RegistrationCollection.find().merge(usersQuery).exec();

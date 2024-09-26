@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-
+// import mongoose from 'mongoose';
 const registrationSchema = new Schema(
   {
     fullName: {
@@ -23,6 +23,11 @@ const registrationSchema = new Schema(
     heardFrom: {
       type: String,
       enum: ['social media', 'friends', 'found myself'],
+    },
+    eventId: {
+      type: String,
+      ref: 'EventCollection',
+      required: true,
     },
   },
   {

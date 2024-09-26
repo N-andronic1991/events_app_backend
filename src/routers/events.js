@@ -13,11 +13,11 @@ const router = Router();
 router.get('/events', ctrlWrapper(getEventsController));
 
 router.post(
-  '/register',
-  validateBody(createUsersSchema),
+  '/register/:eventId',
+  // validateBody(createUsersSchema),
   ctrlWrapper(createRegisterUserController),
 );
 
-router.get('/participants', ctrlWrapper(getUsersController));
+router.get('/participants/:eventId', ctrlWrapper(getUsersController));
 
 export default router;
