@@ -14,17 +14,18 @@ export const startServer = () => {
   app.use(
     express.json({
       type: ['application/json', 'application/vnd.api+json'],
+      limit: '100mb',
     }),
   );
   app.use(cors());
 
-  // app.use(
-  //   pino({
-  //     transport: {
-  //       target: 'pino-pretty',
-  //     },
-  //   }),
-  // );
+  app.use(
+    pino({
+      transport: {
+        target: 'pino-pretty',
+      },
+    }),
+  );
 
   app.get('/', (req, res) => {
     res.json({

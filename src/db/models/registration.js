@@ -11,7 +11,6 @@ const registrationSchema = new Schema(
       type: String,
       trim: true,
       lowercase: true,
-      unique: true,
       required: [true, 'Email address is required'],
     },
 
@@ -35,4 +34,6 @@ const registrationSchema = new Schema(
     versionKey: false,
   },
 );
+
+registrationSchema.index({ email: 1, eventId: 1 }, { unique: true });
 export const RegistrationCollection = model('registration', registrationSchema);

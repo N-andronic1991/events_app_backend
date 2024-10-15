@@ -30,9 +30,9 @@ export const getEventsController = async (req, res) => {
 export const createRegisterUserController = async (req, res) => {
   const { eventId } = req.params;
   const formData = req.body;
-  const user = await createRegisterUser(req.body, eventId);
+  const user = await createRegisterUser(eventId, req.body);
   if (!eventId) {
-    throw createHttpError(404, 'User not found');
+    throw createHttpError(404, 'Event ID is required');
   }
 
   res.status(201).json({

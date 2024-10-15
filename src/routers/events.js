@@ -14,7 +14,7 @@ router.get('/events', ctrlWrapper(getEventsController));
 
 router.post(
   '/register/:eventId',
-  // validateBody(createUsersSchema),
+  validateBody(createUsersSchema),
   ctrlWrapper(createRegisterUserController),
 );
 

@@ -29,7 +29,7 @@ export const getAllEvents = async ({
   };
 };
 
-export const createRegisterUser = async (payload, eventId) => {
+export const createRegisterUser = async (eventId, payload) => {
   const user = await RegistrationCollection.create({ ...payload, eventId });
   return user;
 };
