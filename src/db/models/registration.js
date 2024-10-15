@@ -1,5 +1,4 @@
 import { model, Schema } from 'mongoose';
-// import mongoose from 'mongoose';
 const registrationSchema = new Schema(
   {
     fullName: {
@@ -36,4 +35,5 @@ const registrationSchema = new Schema(
 );
 
 registrationSchema.index({ email: 1, eventId: 1 }, { unique: true });
+
 export const RegistrationCollection = model('registration', registrationSchema);
