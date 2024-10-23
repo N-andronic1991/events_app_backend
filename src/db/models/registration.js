@@ -34,6 +34,9 @@ const registrationSchema = new Schema(
   },
 );
 
-registrationSchema.index({ email: 1, eventId: 1 }, { unique: true });
+registrationSchema.index(
+  { email: 1, eventId: 1 },
+  { unique: true, dropDups: true },
+);
 
 export const RegistrationCollection = model('registration', registrationSchema);
