@@ -29,29 +29,30 @@ export const getAllEvents = async ({
   };
 };
 
-// export const createRegisterUser = async (eventId, payload) => {
-//   const user = await RegistrationCollection.create({ ...payload, eventId });
-//   return user;
-// };
-
 export const createRegisterUser = async (payload) => {
   const user = await RegistrationCollection.create(payload);
   return user;
 };
 
 export const getAllRegisteredUsers = async (filter = {}, eventId) => {
-  const usersQuery = RegistrationCollection.find();
+  const query = {};
+
   if (eventId) {
-    usersQuery.where('eventId').equals(eventId);
+    query.eventId = eventId;
   }
+
   if (filter.fullName) {
-    usersQuery.where('fullName').equals(filter.fullName);
+    query.fullName = filter.fullName;
   }
 
   if (filter.email) {
-    usersQuery.where('email').equals(filter.email);
+    query.email = filter.email;
   }
 
-  const users = await usersQuery.exec();
+  console.log('Event ID:', eventId);
+  console.log('Filter Params:', filter);
+
+  const users = await RegistrationCollection.find(query).exec();
+
   return users;
 };
