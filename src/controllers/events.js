@@ -27,26 +27,54 @@ export const getEventsController = async (req, res) => {
   });
 };
 
-export const createRegisterUserController = async (req, res) => {
-  const { eventId } = req.params;
-  const formData = req.body;
-  const user = await createRegisterUser(eventId, req.body);
-  if (!eventId) {
-    throw createHttpError(404, 'Event ID is required');
-  }
+// export const createRegisterUserController = async (req, res) => {
+//   const { eventId } = req.params;
+//   const formData = req.body;
+//   const user = await createRegisterUser(eventId, req.body);
+//   if (!eventId) {
+//     throw createHttpError(404, 'Event ID is required');
+//   }
 
-  if (error.code === 11000) {
-    // MongoDB duplicate key error (based on the unique compound index)
-    return res
-      .status(400)
-      .json({ message: 'User is already registered for this event.' });
-  }
+//   if (error.code === 11000) {
+//     // MongoDB duplicate key error (based on the unique compound index)
+//     return res
+//       .status(400)
+//       .json({ message: 'User is already registered for this event.' });
+//   }
 
-  res.status(201).json({
-    status: 201,
-    message: `Successfully created a user!`,
-    data: user,
-  });
+//   res.status(201).json({
+//     status: 201,
+//     message: `Successfully created a user!`,
+//     data: user,
+//   });
+// };
+
+export const createRegisterUserController = async (req, res, next) => {
+  try {
+    const { eventId } = req.params; // Get eventId from URL
+    if (!eventId) {
+      throw createHttpError(400, 'Event ID is required');
+    }
+
+    const formData = { ...req.body, eventId }; // Ensure eventId is included only once
+    const user = await createRegisterUser(formData);
+
+    res.status(201).json({
+      status: 201,
+      message: `Successfully created a user!`,
+      data: user,
+    });
+  } catch (error) {
+    console.error('Error in createRegisterUserController:', error); // Logs the actual error
+
+    if (error.code === 11000) {
+      return res
+        .status(400)
+        .json({ message: 'User is already registered for this event.' });
+    }
+
+    next(error); // Pass any other errors to the global error handler
+  }
 };
 
 export const getUsersController = async (req, res) => {

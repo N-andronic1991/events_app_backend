@@ -29,8 +29,13 @@ export const getAllEvents = async ({
   };
 };
 
-export const createRegisterUser = async (eventId, payload) => {
-  const user = await RegistrationCollection.create({ ...payload, eventId });
+// export const createRegisterUser = async (eventId, payload) => {
+//   const user = await RegistrationCollection.create({ ...payload, eventId });
+//   return user;
+// };
+
+export const createRegisterUser = async (payload) => {
+  const user = await RegistrationCollection.create(payload);
   return user;
 };
 
