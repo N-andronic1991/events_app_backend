@@ -11,5 +11,5 @@ export const createUsersSchema = Joi.object({
     .required(),
   email: Joi.string().email().required(),
   dateOfBirth: Joi.date().required(),
-  heardFrom: Joi.string().valid('socials media', 'friends', 'found myself'),
+  heardFrom: Joi.string().valid('social media', 'friends', 'found myself'),
 });
